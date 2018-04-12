@@ -2,46 +2,126 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Zombie
+public class Zombie : MonoBehaviour
 {
-    GameObject zombieMesh; //Cubo 
+    ColorType mycolor;
+    MyGustoAseessino myGusto;
+    GameObject zombieMesh;
+    public static int valor;
+    MyStruct str;
+    float speed = 10;
+    int mov;
 
-    public Zombie()
+    void Start()
     {
-
-        zombieMesh = GameObject.CreatePrimitive(PrimitiveType.Cube); //Instancia el cubo 
-        //define la posicion del GameObject 
-        Vector3 pos = new Vector3();
-        pos.x = Random.Range(-10, 10); pos.y = 0f; pos.z = Random.Range(-10, 10);
-        zombieMesh.transform.position = pos;
-
-        //numero randon entre 1 y 3
-       int alt = Random.Range(1, 4); 
-
-        //dependiendo del valor que nos de alt se escojera alguno de de los 3 casos 
-        //los casos cambian de colro el cubo y le cambia el nombre del Gameobject 
-        if (alt == 2)
-        {
-            zombieMesh.GetComponent<Renderer>().material.SetColor("_Color", Color.green);
-            zombieMesh.name = "Hola soy un Zombie y soy de color VERDE ";
-            Debug.Log("Soy un Zombie color VERDE ");
-        }
-
-        if(alt == 3)
-        {
-            zombieMesh.GetComponent<Renderer>().material.SetColor("_Color", Color.magenta);
-            zombieMesh.name = "Hola soy un Zombie y soy de color MAGENTA ";
-            Debug.Log("Soy un Zombie color MAGENTA ");
-        }
-
-        if(alt == 1)
-        {
-            zombieMesh.GetComponent<Renderer>().material.SetColor("_Color", Color.cyan);
-            zombieMesh.name = "Hola soy un Zombie y soy de color CYAN ";
-            Debug.Log("Soy un Zombie color CYAN ");
-        }
-      
-       
+        mycolor = (ColorType)Random.Range(0, 3);
+        str.myGusto2 = (MyGustoAseessino)Random.Range(0, 5);
+        StartCoroutine(MovimientoZombie());
     }
 
+    void Update()
+    {
+        if (mycolor == ColorType.cyan)
+        {
+            this.GetComponent<Renderer>().material.color = Color.cyan;
+        }
+
+        if(mycolor == ColorType.green)
+        {
+            this.GetComponent<Renderer>().material.color = Color.green;
+        }
+
+        if (mycolor == ColorType.magenta)
+        {
+            this.GetComponent<Renderer>().material.color = Color.magenta;
+        }
+
+        switch (mov)
+        {
+            case 1:
+
+                transform.position += transform.forward * Time.deltaTime;
+
+                break;
+
+            case 2:
+                transform.position -= transform.forward * Time.deltaTime;
+
+                break;
+
+                case 3:
+
+                transform.position += transform.right * Time.deltaTime;
+                break;
+
+            case 4:
+                transform.position -= transform.right * Time.deltaTime;
+
+                break;
+
+            case 5:
+                transform.position += new Vector3(0, 0, 0);
+                break;
+
+        }
+
+
+
+    }
+
+    public void InfoMove()
+    {
+        if (str.myMovimiento == Movimiento.moving)
+        {
+            mov = Random.Range(1,5);
+            StartCoroutine(MovimientoZombie());
+        }
+        else
+        {
+            mov = 5;
+            StartCoroutine(MovimientoZombie());
+        }
+    }
+
+    public MyStruct Info()
+    {
+        return str;
+        
+    }
+    IEnumerator MovimientoZombie ()
+    {
+
+        yield return new WaitForSeconds(5);
+        str.myMovimiento = (Movimiento)Random.Range(0, 2);
+        InfoMove();
+        StartCoroutine(MovimientoZombie());
+ 
+    }
+
+   
 }
+
+public enum Movimiento
+{
+    idle,moving
+}
+
+public enum ColorType
+{
+    cyan, magenta, green
+}
+
+public enum MyGustoAseessino
+{
+    torso, mano, corazon, cerebro, pie
+}
+
+
+
+public struct MyStruct
+{
+    public ColorType mycolor2;
+    public MyGustoAseessino myGusto2;
+    public Movimiento myMovimiento;
+}
+

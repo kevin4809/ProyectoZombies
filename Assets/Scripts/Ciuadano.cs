@@ -2,26 +2,36 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Ciuadano
+public class Ciuadano : MonoBehaviour
 {
 
-    public string name; //Variable tipo string en el que colocaremos el nombre del ciudadano 
-    public int hitpoint; //Variabe tipo int en el que colocaremos la edad del ciudadano 
+    MyStruct2 nam;
+    Miname nombre;
 
-    GameObject ciudadanoMesh; //cubo Gameobject
-
-    public Ciuadano(string n, int edad)
+    void Start()
     {
-        name = n;
-        hitpoint = edad; 
-        ciudadanoMesh = GameObject.CreatePrimitive(PrimitiveType.Cube); // instancia el cubo
-        //define la posicion del Gameobject
-        Vector3 pos = new Vector3();
-        pos.x = Random.Range(-10, 10); pos.y = 0f; pos.z = Random.Range(-10, 10);
-        ciudadanoMesh.transform.position = pos;
-
-        //escribe en la consola en nombre y la edad 
-        Debug.Log("Hola mi nombre es " + name + " y tengo " + edad + " años");
+        //se asigna un valor al azar a myName y a mi edad 
+        nam.myName = (Miname)Random.Range(0, 13);
+        nam.edad = Random.Range(15, 101);
     }
-	
+
+    public MyStruct2 info2()
+    {
+        //returna el valor nam 
+        return nam;
+       
+    }
+   
+}
+//enum donde almacenamos los nombres de los ciudadanos 
+public enum Miname
+{
+    Carlos, Santiago, Sara, Laura, Camila, Jhon, Camilo, Roberto, Goku, Riuck, superman, ComoTepiyeteparto
+}
+
+public struct MyStruct2
+{ 
+    // strut donde guardamos la informaciom de miname y edad 
+    public Miname myName;
+    public float edad;
 }
