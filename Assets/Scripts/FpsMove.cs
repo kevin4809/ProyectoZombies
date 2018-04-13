@@ -6,7 +6,6 @@ public class FpsMove : MonoBehaviour
 {
     public float speed; // se define la la velosidad con la cual se movera el personaje 
     public string gusto;
-    public static bool p;
 
     void Start()
     {
@@ -33,20 +32,7 @@ public class FpsMove : MonoBehaviour
         {
             transform.position -= transform.right * speed; //el GameObject se mueve hacia izquierda 
         }
-
-        if(p == true)
-        {
-            p = false;
-        }
-
     }
-
-   public void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Zombie"))
-        {
-            p = true;
-        }
-    }
+    
 
 }

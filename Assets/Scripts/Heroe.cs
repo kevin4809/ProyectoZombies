@@ -14,7 +14,7 @@ public class Heroe : MonoBehaviour
         if (collision.gameObject.GetComponent<Zombie>())
         {
             zombieInfo = collision.gameObject.GetComponent<Zombie>().Info();
-            Debug.Log("awrrr quiero comer tu " + zombieInfo.myGusto2);
+            Debug.Log("awrrr quiero comer tu " + zombieInfo.myGusto2); //Se ejecuta el mensaje 
         }
 
         if (collision.gameObject.GetComponent<Ciuadano>())
