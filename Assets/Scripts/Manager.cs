@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.AI;
 public class Manager : MonoBehaviour
 {
     int nC; //variable tipo int donde colocaremos el numero de instancias 
     public GameObject player; //player 
     GameObject zombieMesh; //gameobjects que cumpliran el papel de zombie y ciudadano 
     int randomZC; // int con el cual escojemos si se instanciara un zombie o un ciudadano 
-    List<GameObject> lista = new List<GameObject>(); // lista de tipo gameobject en donde colocaremos todos los zombie y los ciudadanos 
+    public static List<GameObject> lista = new List<GameObject>(); // lista de tipo gameobject en donde colocaremos todos los zombie y los ciudadanos 
     readonly int minNum = 5; // limita el numero minimo a 5 
     public int cont1; // contador de zombie 
     public int cont2; // contado de ciudadano 
@@ -19,9 +20,11 @@ public class Manager : MonoBehaviour
     {
         //instanciamos player
         Instantiate(player);
+        player.name = ("PLayer");
 
         //nc toma un valor entre 5 y 10 
-        nC = Random.Range(minNum, 15);
+         nC = Random.Range(minNum, 25);
+       
     
         for (int i = 0; i < nC; i++)
         {
@@ -36,6 +39,7 @@ public class Manager : MonoBehaviour
                 zombieMesh.transform.position = pos;
                 lista.Add(zombieMesh);
                 zombieMesh.AddComponent<Zombie>();
+               
                 
             }
             else
@@ -48,6 +52,7 @@ public class Manager : MonoBehaviour
                 zombieMesh.transform.position = pos;
                 lista.Add(zombieMesh);
                 zombieMesh.AddComponent<Ciuadano>();
+               
             }
           
           

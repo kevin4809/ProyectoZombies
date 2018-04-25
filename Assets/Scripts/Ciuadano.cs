@@ -1,27 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class Ciuadano : MonoBehaviour
+using UnityEngine.AI;
+public class Ciuadano : NPC
 {
 
     MyStruct2 nam;
     Miname nombre;
 
-    void Start()
+   public void Start()
     {
         //se asigna un valor al azar a myName y a mi edad 
         nam.myName = (Miname)Random.Range(0, 13);
         nam.edad = Random.Range(15, 101);
+        StartC();
     }
-
-    public MyStruct2 info2()
-    {
-        //returna el valor nam 
-        return nam;
-       
-    }
-   
+  
 }
 //enum donde almacenamos los nombres de los ciudadanos 
 public enum Miname
@@ -34,4 +28,6 @@ public struct MyStruct2
     // strut donde guardamos la informaciom de miname y edad 
     public Miname myName;
     public float edad;
+ 
 }
+

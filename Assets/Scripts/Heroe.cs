@@ -7,7 +7,7 @@ public class Heroe : MonoBehaviour
     public string n;
     MyStruct zombieInfo; //struc donde tenemos guardado toda la informacion
     MyStruct2 ciudadanoInfo; // struc donde tenemos guardado toda la informacion
-
+    float dins;
     //si el heroe toca al el zombie o el ciudadano se ejecuta el mensaje correspondiente 
     public void OnCollisionEnter(Collision collision)
     {
@@ -23,4 +23,5 @@ public class Heroe : MonoBehaviour
             Debug.Log("Hola soy " + ciudadanoInfo.myName + " y tengo " + ciudadanoInfo.edad);
         }
     }
+
 }
