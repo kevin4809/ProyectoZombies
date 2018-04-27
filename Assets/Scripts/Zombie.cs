@@ -9,13 +9,15 @@ public class Zombie : NPC
     MyGustoAseessino myGusto;
     MyStruct str; //almacenamos la informacion del struct "MyStruct" en "str"
     
-    public void Start()
-    {
-        //se adquiere un valor rando para mycolor y mygusto ademas de eso se ejecuta la corrutina MovimientoZombie 
-        mycolor = (ColorType)Random.Range(0, 3); 
-        str.myGusto2 = (MyGustoAseessino)Random.Range(0, 5);
-        str.edad = Random.Range(15, 101);
 
+    
+    public override void act()
+    {
+        base.act();
+        //se adquiere un valor rando para mycolor y mygusto ademas de eso se ejecuta la corrutina MovimientoZombie 
+        mycolor = (ColorType)Random.Range(0, 3);
+        str.myGusto2 = (MyGustoAseessino)Random.Range(0, 5);
+       
         if (mycolor == ColorType.cyan)
         {
             this.GetComponent<Renderer>().material.color = Color.cyan;
@@ -30,13 +32,18 @@ public class Zombie : NPC
         {
             this.GetComponent<Renderer>().material.color = Color.magenta;
         }
-        StartC();
+
     }
 
-    public override void Dinstans()
+    public void OnCollisionEnter(Collision collision)
     {
-        
+        if (collision.gameObject.GetComponent<Ciuadano>())
+        {
+            Ciuadano ic = collision.gameObject.GetComponent<Ciuadano>();
+            Zombie izz = ic;
+        }
     }
+
     public MyStruct Info()
     {
         //retorna el str (MyStruct)

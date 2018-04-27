@@ -4,19 +4,44 @@ using UnityEngine;
 
 public class NPC : MonoBehaviour
 {
-    public float speed = 4;
+    float speed;
     int movC;
     int altM;
     MyStruct3 mov;
     MyStruct2 nam;
     public Transform target;
     public float distance = 5;
-    public void StartC()
-    {   
+    public infoTodo information;
+
+    public void Start()
+    {
         StartCoroutine(MovimientoCiudadano());
-    
+        information.age = Random.Range(15, 101);
+        information.speed = 500f / information.age * Time.deltaTime;
+        act();
+        speed = Random.Range(0.5f, 4);
+
     } 
-   
+    public virtual void act()
+    {
+        
+    }
+    public virtual void Dinstans()
+    {
+        foreach (GameObject cubito in Manager.lista)
+        {
+            if (cubito.GetComponent<Ciuadano>() || cubito.GetComponent<Heroe>())
+            {
+               if( Vector3.Distance(cubito.transform.position, transform.position) < distance)
+                {
+                    transform.position = Vector3.MoveTowards(transform.position, cubito.transform.position, information.speed);
+                    StopCoroutine(MovimientoCiudadano());
+                }
+
+            }
+        }
+    }
+
     void Update()
     {
         switch (movC)
@@ -54,9 +79,11 @@ public class NPC : MonoBehaviour
                 break;
         }
 
+        Dinstans();
+
     }
 
-    public MyStruct2 info2()
+    public MyStruct2 info4()
     {
         return nam;
     }
@@ -66,19 +93,6 @@ public class NPC : MonoBehaviour
         return mov;
        
     }
-
-    virtual public void Dinstans()
-    {
-        foreach(GameObject cubito in Manager.lista)
-        {
-            if (Vector3.Distance(target.transform.position, transform.position) < distance)
-            {
-                mov.myMoving = MovimientoC.runing;
-                InfoMoving();
-            }
-        }
-    }
-   
 
     public void InfoMoving()
     {
@@ -103,13 +117,21 @@ public class NPC : MonoBehaviour
         }
     }
 
-    IEnumerator MovimientoCiudadano()
+   public IEnumerator MovimientoCiudadano()
     {
         yield return new WaitForSeconds(3);
         mov.myMoving = (MovimientoC)Random.Range(0, 2);
         InfoMoving();
         StartCoroutine(MovimientoCiudadano());
     }
+
+
+    public infoTodo infoAll()
+    {
+        return information;
+    }
+
+
 }
 public enum MovimientoC
 {
@@ -119,4 +141,11 @@ public enum MovimientoC
 public struct MyStruct3
 {
     public MovimientoC myMoving;
+}
+
+
+public struct infoTodo
+{
+    public float speed;
+    public float age;
 }

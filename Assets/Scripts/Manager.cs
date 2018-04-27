@@ -14,8 +14,12 @@ public class Manager : MonoBehaviour
     public int cont1; // contador de zombie 
     public int cont2; // contado de ciudadano 
 
+
     Text ciudadano; 
     Text zombie;
+
+    public static bool acti;
+
     void Start()
     {
         //instanciamos player
@@ -39,6 +43,7 @@ public class Manager : MonoBehaviour
                 zombieMesh.transform.position = pos;
                 lista.Add(zombieMesh);
                 zombieMesh.AddComponent<Zombie>();
+                zombieMesh.AddComponent<Rigidbody>();
                
                 
             }
@@ -52,7 +57,7 @@ public class Manager : MonoBehaviour
                 zombieMesh.transform.position = pos;
                 lista.Add(zombieMesh);
                 zombieMesh.AddComponent<Ciuadano>();
-               
+                zombieMesh.AddComponent<Rigidbody>();
             }
           
           
@@ -83,5 +88,21 @@ public class Manager : MonoBehaviour
        //se le da el valor de cont1 y cont2 
         ciudadano.text = "Ciudadano = " + cont2; 
         zombie.text = "Zombie = " + cont1;
+
+        if(acti == true)
+        {
+            StartCoroutine(rest());
+        }
+    }
+
+    public void ExitButtom()
+    {
+        acti = true;
+    }
+
+    IEnumerator rest()
+    {
+        yield return new WaitForSeconds(1);
+        acti = false;
     }
 }
